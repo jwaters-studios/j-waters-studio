@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11131b">
+  <meta name="description" content="J Waters Studios — business consulting, AI concepts, software prototypes, and multimedia projects.">
+  <title>J Waters Studios | Business Consulting & Multimedia</title>
+  <style>
+    :root {
+      --bg: #0d0f16;
+      --panel: #151925;
+      --panel-2: #1b2130;
+      --text: #f5f6fb;
+      --muted: #b2bbce;
+      --line: rgba(255,255,255,.13);
+      --accent: #9aabff;
+      --accent-2: #c4a7ff;
+      --max: 1120px;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: radial-gradient(ellipse at top right, #202642 0, transparent 38%), var(--bg);
+      color: var(--text); font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    button, input, select, textarea { font: inherit; }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(13,15,22,.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-weight: 800; letter-spacing: .02em; text-decoration: none; }
+    .brand span { color: var(--accent); }
+    .navlinks { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+    .navlinks a { text-decoration: none; color: var(--muted); font-size: .93rem; }
+    .navlinks a:hover, .navlinks a:focus-visible { color: var(--text); }
+    .menu-button { display: none; background: transparent; border: 1px solid var(--line); color: var(--text); border-radius: 10px; padding: 8px 12px; }
+    .hero { padding: 100px 0 86px; }
+    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .16em; font-size: .78rem; font-weight: 800; }
+    h1 { max-width: 850px; font-size: clamp(2.6rem, 7vw, 5.6rem); line-height: 1.02; letter-spacing: -.055em; margin: 18px 0 24px; }
+    .gradient { background: linear-gradient(100deg, #fff, var(--accent), var(--accent-2)); color: transparent; background-clip: text; -webkit-background-clip: text; }
+    .lead { max-width: 690px; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.25rem); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel); color: var(--text); text-decoration: none; font-weight: 700; cursor: pointer; }
+    .btn.primary { background: linear-gradient(120deg, #8fa4ff, #c0a0ff); color: #11131b; border-color: transparent; }
+    .btn:hover { transform: translateY(-1px); }
+    section { padding: 78px 0; border-top: 1px solid var(--line); scroll-margin-top: 85px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 30px; }
+    h2 { font-size: clamp(2rem, 4vw, 3.1rem); letter-spacing: -.04em; line-height: 1.1; margin: 8px 0 12px; }
+    h3 { margin: 0 0 10px; font-size: 1.25rem; }
+    p { margin-top: 0; }
+    .muted { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+    .card { background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018)); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+    .card-body { padding: 22px; }
+    .tag { display: inline-flex; padding: 5px 9px; border: 1px solid var(--line); color: var(--accent); border-radius: 999px; font-size: .76rem; font-weight: 750; margin-bottom: 12px; }
+    .project-screen { min-height: 230px; background: linear-gradient(135deg, #222a42, #171a28 65%, #312343); display: grid; place-items: center; padding: 24px; position: relative; }
+    .project-screen img { width: 100%; height: 240px; object-fit: contain; border-radius: 10px; }
+    .placeholder { width: 100%; min-height: 190px; display: grid; place-items: center; text-align: center; color: #dbe0ff; border: 1px dashed rgba(196,207,255,.45); border-radius: 12px; padding: 22px; }
+    .placeholder strong { display: block; font-size: 1.2rem; margin-bottom: 6px; }
+    .slide-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+    .slide-controls .btn { padding: 8px 12px; }
+    .dots { display: flex; gap: 7px; justify-content: center; flex: 1; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; border: 0; background: #5c6378; padding: 0; cursor: pointer; }
+    .dot[aria-current="true"] { background: var(--accent); outline: 2px solid rgba(154,171,255,.25); outline-offset: 3px; }
+    .feature-list { padding-left: 20px; color: var(--muted); }
+    .feature-list li { margin: 6px 0; }
+    .service-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+    .service { padding: 24px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.025); }
+    .service-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: #242b43; color: var(--accent); font-size: 1.25rem; margin-bottom: 16px; }
+    .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 30px; align-items: start; }
+    form { display: grid; gap: 15px; }
+    .field { display: grid; gap: 7px; }
+    label { font-size: .9rem; font-weight: 700; }
+    input, select, textarea { width: 100%; border: 1px solid var(--line); border-radius: 11px; padding: 12px 13px; background: #10131d; color: var(--text); }
+    textarea { min-height: 120px; resize: vertical; }
+    input:focus, select:focus, textarea:focus, button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .form-note { color: var(--muted); font-size: .88rem; }
+    .footer { padding: 30px 0; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .hidden { position: absolute; left: -5000px; }
+    @media (max-width: 760px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      .nav { min-height: 66px; flex-wrap: wrap; padding: 12px 0; }
+      .menu-button { display: inline-flex; }
+      .navlinks { display: none; width: 100%; padding: 8px 0 12px; flex-direction: column; align-items: flex-start; gap: 14px; }
+      .navlinks.open { display: flex; }
+      .hero { padding: 72px 0 60px; }
+      section { padding: 58px 0; }
+      .section-head { display: block; }
+      .grid, .service-grid, .contact-grid { grid-template-columns: 1fr; }
+      .project-screen { min-height: 190px; }
+      .project-screen img { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="J Waters Studios home">J WATERS <span>STUDIOS</span></a>
+      <button class="menu-button" id="menuButton" aria-expanded="false" aria-controls="navlinks">Menu</button>
+      <nav class="navlinks" id="navlinks" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#digital-lab">Digital Lab</a>
+        <a href="#sound-motion">Sound &amp; Motion</a>
+        <a href="#consultation">Consultation</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home" style="border-top:0">
+      <div class="wrap">
+        <div class="eyebrow">Business consulting · Technology · Multimedia</div>
+        <h1>Ideas become <span class="gradient">useful digital experiences.</span></h1>
+        <p class="lead">J Waters Studios brings together business thinking, AI-assisted concepts, software prototypes, and multimedia projects to help turn ideas into clear, testable experiences.</p>
+        <div class="actions">
+          <a class="btn primary" href="#digital-lab">Explore the Digital Lab ↗</a>
+          <a class="btn" href="#consultation">Discuss a project</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="digital-lab">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Technology portfolio</div>
+            <h2>Digital Lab</h2>
+            <p class="muted">A look at concepts and prototypes exploring new ways to solve problems.</p>
+          </div>
+          <span class="tag">Prototype showcase</span>
+        </div>
+        <div class="grid" id="projectGrid">
+          <!-- To add your screenshots: create an "images" folder beside this index.html.
+               Put each image in that folder, then replace the placeholder in a project slide
+               with: <img src="images/your-file.png" alt="Description of the app screen"> -->
+          <article class="card project" data-project="coviat">
+            <div class="project-screen">
+              <div class="placeholder"><div><strong>Coviat OS</strong>Screenshot placeholder<br><small>Add your image in the images folder</small></div></div>
+            </div>
+            <div class="card-body">
+              <span class="tag">AI / Creative workflow</span>
+              <h3>Coviat OS</h3>
+              <p class="muted">An AI-assisted creative concept exploring how a guided workflow can help organize and develop media ideas.</p>
+              <ul class="feature-list"><li>Concept and workflow exploration</li><li>Prototype interface and user journey</li><li>Designed to evolve through testing</li></ul>
+              <div class="slide-controls">
+                <button class="btn prev" type="button" aria-label="Previous Coviat OS screenshot">←</button>
+                <div class="dots" aria-label="Coviat OS screenshot navigation"><button class="dot" aria-label="Screenshot 1" aria-current="true"></button><button class="dot" aria-label="Screenshot 2" aria-current="false"></button><button class="dot" aria-label="Screenshot 3" aria-current="false"></button></div>
+                <button class="btn next" type="button" aria-label="Next Coviat OS screenshot">→</button>
+              </div>
+            </div>
+          </article>
+          <article class="card project" data-project="oracle">
+            <div class="project-screen"><div class="placeholder"><div><strong>Oracle GPT</strong>Screenshot placeholder<br><small>Add your image in the images folder</small></div></div></div>
+            <div class="card-body">
+              <span class="tag">AI / Information tools</span>
+              <h3>Oracle GPT</h3>
+              <p class="muted">An AI product concept focused on making information easier to explore, organize, and use.</p>
+              <ul class="feature-list"><li>Conversational experience concept</li><li>Information and task exploration</li><li>Prototype-led product development</li></ul>
+              <div class="slide-controls">
+                <button class="btn prev" type="button" aria-label="Previous Oracle GPT screenshot">←</button>
+                <div class="dots" aria-label="Oracle GPT screenshot navigation"><button class="dot" aria-label="Screenshot 1" aria-current="true"></button><button class="dot" aria-label="Screenshot 2" aria-current="false"></button><button class="dot" aria-label="Screenshot 3" aria-current="false"></button></div>
+                <button class="btn next" type="button" aria-label="Next Oracle GPT screenshot">→</button>
+              </div>
+            </div>
+          </article>
+          <article class="card project" data-project="xpro">
+            <div class="project-screen"><div class="placeholder"><div><strong>Xpro</strong>Screenshot placeholder<br><small>Add your image in the images folder</small></div></div></div>
+            <div class="card-body">
+              <span class="tag">Sports / Performance</span>
+              <h3>Xpro</h3>
+              <p class="muted">A sports-focused dashboard concept for presenting athlete-related information in a more useful, organized format.</p>
+              <ul class="feature-list"><li>Dashboard and data presentation</li><li>Athlete-focused product concept</li><li>Room for future metrics and insights</li></ul>
+              <div class="slide-controls">
+                <button class="btn prev" type="button" aria-label="Previous Xpro screenshot">←</button>
+                <div class="dots" aria-label="Xpro screenshot navigation"><button class="dot" aria-label="Screenshot 1" aria-current="true"></button><button class="dot" aria-label="Screenshot 2" aria-current="false"></button><button class="dot" aria-label="Screenshot 3" aria-current="false"></button></div>
+                <button class="btn next" type="button" aria-label="Next Xpro screenshot">→</button>
+              </div>
+            </div>
+          </article>
+          <article class="card project" data-project="corveux">
+            <div class="project-screen"><div class="placeholder"><div><strong>Corveux</strong>Screenshot placeholder<br><small>Add your image in the images folder</small></div></div></div>
+            <div class="card-body">
+              <span class="tag">Fashion / Digital brand</span>
+              <h3>Corveux</h3>
+              <p class="muted">A fashion and brand concept exploring digital presentation, visual identity, and a cohesive product experience.</p>
+              <ul class="feature-list"><li>Visual concept and brand direction</li><li>Digital presentation exploration</li><li>Scalable concept for future development</li></ul>
+              <div class="slide-controls">
+                <button class="btn prev" type="button" aria-label="Previous Corveux screenshot">←</button>
+                <div class="dots" aria-label="Corveux screenshot navigation"><button class="dot" aria-label="Screenshot 1" aria-current="true"></button><button class="dot" aria-label="Screenshot 2" aria-current="false"></button><button class="dot" aria-label="Screenshot 3" aria-current="false"></button></div>
+                <button class="btn next" type="button" aria-label="Next Corveux screenshot">→</button>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="form-note" style="margin-top:18px">These are portfolio descriptions for concepts/prototypes, not claims that every feature is production-ready. Replace the placeholder panels with your real screenshots before publishing the showcase as complete.</p>
+      </div>
+    </section>
+
+    <section id="sound-motion">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Multimedia</div>
+            <h2>Sound &amp; Motion</h2>
+            <p class="muted">A home for audio, video, visual storytelling, and experiments in creative production.</p>
+          </div>
+        </div>
+        <div class="grid">
+          <article class="card"><div class="card-body"><span class="tag">Audio</span><h3>Audio projects</h3><p class="muted">Add a short description and audio player when you are ready. You can use an audio file you own or an approved embed from a streaming platform.</p><p class="form-note">Audio player placeholder — no audio files are loaded yet.</p></div></article>
+          <article class="card"><div class="card-body"><span class="tag">Video &amp; visual work</span><h3>Motion projects</h3><p class="muted">Showcase video concepts, motion design, trailers, or other visual projects here as the portfolio grows.</p><p class="form-note">Media placeholder — add your own project assets when ready.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="consultation">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Let's work through the idea</div><h2>Consultation</h2><p class="muted">Share what you are building, what you need help with, and where you are in the process.</p></div>
+        </div>
+        <div class="service-grid">
+          <article class="service"><div class="service-icon">✦</div><h3>Business consulting</h3><p class="muted">Clarify goals, workflows, service ideas, and practical next steps.</p></article>
+          <article class="service"><div class="service-icon">⌘</div><h3>Technology concepts</h3><p class="muted">Explore AI-assisted tools, prototypes, dashboards, and digital product ideas.</p></article>
+          <article class="service"><div class="service-icon">◉</div><h3>Multimedia projects</h3><p class="muted">Plan how digital content, audio, visuals, and product storytelling work together.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-grid">
+          <div>
+            <div class="eyebrow">Contact J Waters Studios</div>
+            <h2>Tell us about your project.</h2>
+            <p class="muted">Use the form to share a few details. The form is set to send to your existing Formspree endpoint.</p>
+            <p class="form-note">If submissions do not arrive, check your Formspree dashboard and confirm that consulting@jwaters.us is the verified recipient.</p>
+          </div>
+          <div class="card"><div class="card-body">
+            <form action="https://formspree.io/f/moeeeaqa" method="POST">
+              <div class="hidden" aria-hidden="true"><label>Leave this field empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+              <input type="hidden" name="_subject" value="New J Waters Studios consultation request">
+              <div class="field"><label for="name">Name *</label><input id="name" name="name" autocomplete="name" required></div>
+              <div class="field"><label for="email">Email address *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+              <div class="field"><label for="service">What can we help with? *</label><select id="service" name="service_type" required><option value="">Choose a service</option><option>Business consulting</option><option>AI or software prototype</option><option>Dashboard or data visualization</option><option>Multimedia project</option><option>Other / not sure yet</option></select></div>
+              <div class="field"><label for="description">Project description *</label><textarea id="description" name="project_description" required placeholder="What are you hoping to create or improve?"></textarea></div>
+              <div class="field"><label for="stage">Where are you in the process?</label><select id="stage" name="process_stage"><option value="">Choose an option</option><option>Exploring an idea</option><option>Planning / research</option><option>Early prototype</option><option>Existing product or business</option><option>Need help deciding</option></select></div>
+              <div class="field"><label for="budget">Estimated budget</label><select id="budget" name="budget"><option value="">Choose an option</option><option>Under $500</option><option>$500–$1,500</option><option>$1,500–$5,000</option><option>$5,000+</option><option>Not sure yet</option></select></div>
+              <div class="field"><label for="timeline">Ideal timeline</label><select id="timeline" name="timeline"><option value="">Choose an option</option><option>As soon as possible</option><option>Within a month</option><option>1–3 months</option><option>Flexible / exploratory</option></select></div>
+              <div class="field"><label for="referral">How did you hear about us?</label><input id="referral" name="referral_source"></div>
+              <div class="field"><label for="additional">Anything else we should know?</label><textarea id="additional" name="additional_information" placeholder="Optional details, links, or questions"></textarea></div>
+              <button class="btn primary" type="submit">Send consultation request ↗</button>
+              <p class="form-note">Submitting this form sends the information you provide to J Waters Studios through Formspree.</p>
+            </form>
+          </div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer-inner"><span>© <span id="year"></span> J Waters Studios</span><span>Business consulting · Technology · Multimedia</span></div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuButton = document.getElementById('menuButton');
+    const navlinks = document.getElementById('navlinks');
+    menuButton.addEventListener('click', () => {
+      const isOpen = navlinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+    navlinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navlinks.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Lightweight screenshot carousel for each project.
+    // To add slides, edit the slides array below and set src to a file such as
+    // "images/coviat-screen-1.png". Keep each image inside the deployed project.
+    const slides = {
+      coviat: [
+        { src: '', alt: 'Coviat OS screenshot 1' },
+        { src: '', alt: 'Coviat OS screenshot 2' },
+        { src: '', alt: 'Coviat OS screenshot 3' }
+      ],
+      oracle: [
+        { src: '', alt: 'Oracle GPT screenshot 1' },
+        { src: '', alt: 'Oracle GPT screenshot 2' },
+        { src: '', alt: 'Oracle GPT screenshot 3' }
+      ],
+      xpro: [
+        { src: '', alt: 'Xpro screenshot 1' },
+        { src: '', alt: 'Xpro screenshot 2' },
+        { src: '', alt: 'Xpro screenshot 3' }
+      ],
+      corveux: [
+        { src: '', alt: 'Corveux screenshot 1' },
+        { src: '', alt: 'Corveux screenshot 2' },
+        { src: '', alt: 'Corveux screenshot 3' }
+      ]
+    };
+    document.querySelectorAll('.project').forEach(card => {
+      const key = card.dataset.project;
+      const screen = card.querySelector('.project-screen');
+      const dots = [...card.querySelectorAll('.dot')];
+      let current = 0;
+      function render(index) {
+        current = (index + slides[key].length) % slides[key].length;
+        const slide = slides[key][current];
+        if (slide.src) {
+          const img = document.createElement('img');
+          img.src = slide.src;
+          img.alt = slide.alt;
+          img.loading = 'lazy';
+          screen.replaceChildren(img);
+        } else {
+          const placeholder = document.createElement('div');
+          placeholder.className = 'placeholder';
+          const label = document.createElement('div');
+          const strong = document.createElement('strong');
+          strong.textContent = card.querySelector('h3').textContent;
+          const note = document.createElement('span');
+          note.textContent = `Screenshot ${current + 1} placeholder`;
+          const small = document.createElement('small');
+          small.textContent = 'Add your image in the slides array in index.html';
+          label.append(strong, document.createElement('br'), note, document.createElement('br'), small);
+          placeholder.append(label);
+          screen.replaceChildren(placeholder);
+        }
+        dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === current)));
+      }
+      card.querySelector('.prev').addEventListener('click', () => render(current - 1));
+      card.querySelector('.next').addEventListener('click', () => render(current + 1));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => render(i)));
+      render(0);
+    });
+  </script>
+</body>
+</html>
